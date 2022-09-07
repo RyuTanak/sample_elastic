@@ -1,0 +1,32 @@
+sudo systemctl restart elasticsearch.service
+sudo systemctl status elasticsearch.service
+
+sudo nano /etc/filebeat/filebeat.yml
+sudo filebeat test config
+
+filebeat
+実行っぽいコマンド
+・sudo filebeat setup
+・service filebeat start
+
+〇自動書き込みの方法
+  設定ファイルの設定読み込みのフラグをtrueにしないと動かない
+　開始(同じ)
+　sudo service filebeat start
+　sudo systemctl start filebeat
+  終了
+　sudo systemctl stop filebeat
+  sudo service filebeat stop
+
+〇一度読んだファイルをどこで読み込まないようにしているか
+　?
+
+〇ファイルへの書き込みは更新されるか
+　行われる
+　messageの部分に新たに追加した文字列が格納される
+
+〇更新頻度は設定ファイル「Filebeat modules」の
+　reload.period: 10s　がそれっぽい
+　説明の訳は：パスの下のファイルの変更をチェックする期間
+　デフォルトで何なのかは、リファレンスに見当たらない
+

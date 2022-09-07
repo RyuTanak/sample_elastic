@@ -1,0 +1,42 @@
+〇任意のフォルダからfilebeatでElasticsearchにログの転送が可能
+---設定ファイル---
+filebeat.input
+- type filestream
+  id: my-filestream-id
+  enable:true
+  (trueにしないと設定ファイルを読み込めない)
+　paths:
+    - home/demo/filebeat/*.log
+      (ログ取得先のファイル)
+
+output.elasticsearch:
+  hosts: ["localshot:9200"]
+  protocol: "http"
+  username: "elastic"
+  password: "nttk1161"
+ 
+ setup.ilm.enable: false
+
+〇filebeatからlogstashを使ってログ転送
+参考サイト：https://qiita.com/ryuichi1208/items/910764e721c47ba31386
+
+・logstashのインストール
+　sudo yum -y install logstash
+・フィルター用のファイルを作成
+　$ sudo nano /etc/logstash/conf.d/01-syslog.conf
+input {
+  beats {
+    port => "5044"
+    type => "beats"
+    }
+}
+
+output {
+  elasticsearch {
+    hosts => ["[IPアドレス]9200"]
+    index => "squid-%{+YYYY.MM}"
+  }
+}
+
+→"squid-%{+YYYY.MM}"のindexは見当たらない、できていないように見える
+
