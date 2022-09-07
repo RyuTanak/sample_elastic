@@ -1,0 +1,46 @@
+# Sample Logstash configuration for creating a simple
+# Beats -> Logstash -> Elasticsearch pipeline.
+
+input {
+  beats {
+    port => 5044
+  }
+}
+#  file {
+#    mode => "tail"
+#    path => ["/home/demo/*.csv"]
+#    sincedb_path => "/home/demo/sincedb/sincedb"
+#    start_position => "beginning"
+#    codec => plain { charset => "UTF-8"}
+#  }
+#}
+
+output {
+  if [log][file][path] == '/home/demo/filebeat/filebeat1/test1.csv' {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      #index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+      index => "test1-0907"
+      user => "elastic"
+      password => "nttk1161"
+    }
+  }
+  else if [log][file][path] == '/home/demo/filebeat/filebeat2/test2.csv' {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      #index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+      index => "test2-0907"
+      user => "elastic"
+      password => "nttk1161"
+    }
+  }
+  else {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      #index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+      index => "test3-0907"
+      user => "elastic"
+      password => "nttk1161"
+    }
+  }
+}
