@@ -1,0 +1,12 @@
+{
+    "log.level": "error",
+    "@timestamp": "2022-09-10T14:26:40.633+0900",
+    "log.logger": "publisher_pipeline_output",
+    "log.origin": {
+        "file.name": "pipeline/client_worker.go",
+        "file.line": 150
+    },
+    "message": "Failed to connect to backoff(elasticsearch(http://13.115.178.247:9200)): Connection marked as failed because the onConnect callback failed: Elasticsearch is too old. Please upgrade the instance. If you would like to connect to older instances set output.elasticsearch.allow_older_versions to true. ES=7.17.5, Beat=8.4.1",
+    "service.name": "winlogbeat",
+    "ecs.version": "1.6.0"
+}
